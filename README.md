@@ -44,7 +44,11 @@ Same thing as a Raspberry PI just using the FRC or FTC platform.
 # Technologies used 
 
 - GoPiGo3
-- GoPiGo OS and Python 
+- GoPiGo OS / Dexeter OS and Python 
 
---- 
+# Current difficulties faced 
 
+- GoPiGo3 NEEDS wifi, cannot connect to the robot over ethernet
+- Unclear if loaded GoPiGo OS / Dexeter OS allows for me to run pythons scripts, I only see jupyter 
+- No MicroSD port on PCs, don't know if I can install Raspbian for Robots to allow for more control 
+- Unclear if my project will be big enough to last me the 5/6 weeks. 
