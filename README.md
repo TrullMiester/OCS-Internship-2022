@@ -45,7 +45,7 @@ Same thing as a Raspberry PI just using the FRC or FTC platform.
 
 - GoPiGo3
 - Raspbian for Robots
-- Linux terminal and shell
+- Debian Linux
 
 # Current difficulties faced 
 
