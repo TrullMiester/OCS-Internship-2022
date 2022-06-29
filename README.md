@@ -44,11 +44,15 @@ Same thing as a Raspberry PI just using the FRC or FTC platform.
 # Technologies used 
 
 - GoPiGo3
-- GoPiGo OS / Dexeter OS and Python 
+- Raspbian for Robots
+- Linux terminal and shell
 
 # Current difficulties faced 
 
-- GoPiGo3 NEEDS wifi, cannot connect to the robot over ethernet
-- Unclear if loaded GoPiGo OS / Dexeter OS allows for me to run pythons scripts, I only see jupyter 
-- No MicroSD port on PCs, don't know if I can install Raspbian for Robots to allow for more control 
+- GoPiGo3 NEEDS wifi, cannot connect to the robot over ethernet. **Solution** Setup wifi using ethernet, use chromebook for rest 
+- Unclear if loaded GoPiGo OS / Dexeter OS allows for me to run pythons scripts, I only see jupyter. **Solution** Use RfR OS
+- No MicroSD port on PCs, don't know if I can install Raspbian for Robots to allow for more control. **Solution** Acquired MicroSD reader
 - Unclear if my project will be big enough to last me the 5/6 weeks. 
+    - Current idea is to just write a program that will use the distance sensor and simply drive around any obstacles while still being close to them.
+    - Another idea is to add a camera and livestream it while also doing that.
+    - Need to research other possible sensors if first 2 are too simple.
