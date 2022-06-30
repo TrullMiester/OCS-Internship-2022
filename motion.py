@@ -1,4 +1,4 @@
-import easygopigo3 as easy
+import easygopigo3
 import time 
 
 # PID controlled function to move the bot forward, goal is 60 rpm.
@@ -8,35 +8,40 @@ import time
 # stop function.
 
 def fwd(bot):
-  bot.reset_encoders(True)
-  
-  dist_sensor = bot.init_distance_sensor()
-    
-  GOAL = 360
+  GOAL = 250 
+  TICKS = 1
+  LOOP_GOAL = GOAL / TICKS
   sum_error = 0
   
-  kP = 0.02
+  kP = 1 
   kI = 0
   kD = 0
 
-  left_speed = 360
-  right_speed = 360
-  
+  left_speed = 250 
+  right_speed = 250
+
+  bot.reset_encoders(True)
   bot.set_motor_dps(bot.MOTOR_LEFT, left_speed)
   bot.set_motor_dps(bot.MOTOR_RIGHT, right_speed)
 
-  time.sleep(1)
-  while dist_sensor.read_mm() > 150:
+  end = time.time()+25
+  while time.time() < end:
+    time.sleep(1)
     left_position, right_position = bot.read_encoders()
+    print(left_position, right_position)
+    bot.reset_encoders(True)
     
-    left_error = GOAL - left_position
-    right_error = GOAL - right_position
+    left_error = LOOP_GOAL - left_position
+    right_error = LOOP_GOAL - right_position
     
     left_speed += kP * left_error
-    right_speed += kP * right_error
+    right_speed += kP * right_error * 2
+
+    print(left_speed, right_speed)
     
     bot.set_motor_dps(bot.MOTOR_LEFT, left_speed)
     bot.set_motor_dps(bot.MOTOR_RIGHT, right_speed)
+
   
   bot.stop()
     

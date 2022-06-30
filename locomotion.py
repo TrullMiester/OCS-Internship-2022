@@ -1,28 +1,12 @@
-import easygopigo3 as easy 
-import time
-import os 
+import easygopigo3 as gpg
+
+import motion as m
+
+def main():
+    bot = gpg.EasyGoPiGo3()
+    m.fwd(bot)
 
 if __name__ == '__main__':
-    print("running")
-    gpg = easy.EasyGoPiGo3() 
-
-    gpg.forward() 
-    time.sleep(1)
-    gpg.backward()
-    time.sleep(1)
-
-    gpg.set_speed(100)
-    gpg.forward() 
-    time.sleep(1)
-    gpg.backward()
-    time.sleep(1)
-
-    gpg.set_speed(500)
-    gpg.forward() 
-    time.sleep(1)
-    gpg.backward()
-    time.sleep(1)
-
-    gpg.stop()
+    main()
 
 
