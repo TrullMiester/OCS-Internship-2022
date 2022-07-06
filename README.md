@@ -45,7 +45,7 @@ Same thing as a Raspberry PI just using the FRC or FTC platform.
 
 - GoPiGo3
 - Raspbian for Robots
-- Debian Linux
+- Debian Shell
 
 # Current difficulties faced 
 
@@ -56,3 +56,13 @@ Same thing as a Raspberry PI just using the FRC or FTC platform.
     - Current idea is to just write a program that will use the distance sensor and simply drive around any obstacles while still being close to them.
     - Another idea is to add a camera and livestream it while also doing that.
     - Need to research other possible sensors if first 2 are too simple.
+
+# Locomotion
+
+By default, the robot will veer to the right. Therefore, with my PID (Just P at the moment) controller, I will overcompensate for the right motor. After lots of trial and error, I had an overcompensation constant that resulted in mostly straight movement. 
+
+The provided turn_degrees method works well, there's some error that builds up but it shouldn't be a concern since I won't need precise turning. The amount of degrees turned will be decided by an algorithm using inputs from the distance sensor.
+
+Using the provided encoders I could provide an estimate of distance travelled, but there's the veering and subsequent overcompensation. As a result, I don't think it'll be very accurate and so I don't think I could make the bot know it's location relative to the start point.
+
+Since my current forward function in motion.py goes on forever, I could either just make it run for a certain number of seconds, or I could try to make it async and turn while it's also going forward. 

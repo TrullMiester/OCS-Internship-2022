@@ -1,11 +1,8 @@
 import easygopigo3
 import time 
 
-# PID controlled function to move the bot forward, goal is 60 rpm.
-# Currently I have no clue how I will make this function non-blocking,
-# so this will contain not only the fwd functionality but also the 
-# constant distance checking. To stop I will just use the built in 
-# stop function.
+# Proportional motor control, extra compensation for right motor
+# Robot naturally veers to the right
 
 def fwd(bot):
   servo = bot.init_servo()
@@ -32,7 +29,10 @@ def fwd(bot):
   while time.time() < end:
     time.sleep(0.25)
     left_position, right_position = bot.read_encoders()
+    
     print(left_position, right_position)
+    
+    bot.reset_encoders(True)
     
     left_error = LOOP_GOAL - left_position
     right_error = LOOP_GOAL - right_position
@@ -42,6 +42,8 @@ def fwd(bot):
     if right_error > 0:
         right_error *= 1.05
 
+      right_error *= 1.375
+    
     right_speed += kP * right_error
 
     print(left_speed, right_speed)
