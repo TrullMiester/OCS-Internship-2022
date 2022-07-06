@@ -25,7 +25,9 @@ def fwd(bot):
   while time.time() < end:
     time.sleep(1)
     left_position, right_position = bot.read_encoders()
+    
     print(left_position, right_position)
+    
     bot.reset_encoders(True)
     
     left_error = LOOP_GOAL - left_position
