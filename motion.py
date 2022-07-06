@@ -1,7 +1,8 @@
 import easygopigo3
 import time 
 
-#
+# Proportional motor control, extra compensation for right motor
+# Robot naturally veers to the right
 
 def fwd(bot):
   GOAL = 250 
@@ -31,7 +32,11 @@ def fwd(bot):
     right_error = LOOP_GOAL - right_position
     
     left_speed += kP * left_error
-    right_speed += kP * right_error * 2
+    
+    if right_error > 0:
+      right_error *= 1.375
+    
+    right_speed += kP * right_error
 
     print(left_speed, right_speed)
     
