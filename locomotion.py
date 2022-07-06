@@ -1,10 +1,9 @@
-import easygopigo3 as gpg
-
-import motion as m
+import motion
+import easygopigo3
 
 def main():
-    bot = gpg.EasyGoPiGo3()
-    m.fwd(bot)
+    bot = easygopigo3.EasyGoPiGo3()
+    motion.fwd(bot)
 
 if __name__ == '__main__':
     main()
