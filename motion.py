@@ -36,7 +36,7 @@ def fwd(bot, goal=200, left_speed=200, right_speed=200):
 
     return (left_speed, right_speed)
 
-def turn(bot, deg): 
+def turn_ccw(bot, deg): 
     ORBIT_DIAMETER = 115 #in mm 
     WHEEL_DIAMETER = 65  #in mm 
 
@@ -45,9 +45,34 @@ def turn(bot, deg):
 
     bot.reset_encoders()
 
-    bot.set_motor_position(bot.MOTOR_LEFT, -degrees_needed)
-    bot.set_motor_position(bot.MOTOR_RIGHT, degrees_needed)
+    left_position, right_position = -degrees_needed, degrees_needed
+    
+    bot.set_motor_position(bot.MOTOR_LEFT, left_position)
+    bot.set_motor_position(bot.MOTOR_RIGHT, right_position)
+
+    time.sleep(0.1)
+    while not bot.target_reached(left_position, right_position):
+        time.sleep(0.05)
+
+def turn_cw(bot, deg): 
+    ORBIT_DIAMETER = 115 #in mm 
+    WHEEL_DIAMETER = 65  #in mm 
+
+    mm_needed = (ORBIT_DIAMETER * math.pi) * (deg / 360)
+    degrees_needed = (mm_needed / (WHEEL_DIAMETER * math.pi)) * 360 
+
+    bot.reset_encoders()
+
+    left_position, right_position = degrees_needed, -degrees_needed
+    
+    bot.set_motor_position(bot.MOTOR_LEFT, left_position)
+    bot.set_motor_position(bot.MOTOR_RIGHT, right_position)
+
+    while not bot.target_reached(left_position, right_position):
+        time.sleep(0.05)
 
 if __name__ == '__main__':
     bot = easygopigo3.EasyGoPiGo3()
-    turn(bot,90)
+
+    turn_ccw(bot, 90)
+    turn_cw(bot, 90)
