@@ -24,6 +24,13 @@ def main():
     while distance_sensor.read_mm() > 300:
         left_speed, right_speed, left_position, right_position = motion.fwd(bot, goal, left_speed, right_speed)
         
+        ddist =  (min(left_position, right_position) / 360) * (WHEEL_DIAMETER * math.pi)
+        total_distance += ddist
+        
+        x_distance += (ddist * math.cos(math.radians(orientation))
+        y_distance += (ddist * math.sin(math.radians(orientation))
+        
+        print(orientation, x_distance, y_distance, total_distance)
         
     bot.stop()
 
