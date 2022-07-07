@@ -37,7 +37,7 @@ def fwd(bot, goal=200, left_speed=200, right_speed=200):
     print(left_speed, left_position)
     print(right_speed, right_position)
 
-    return (left_speed, right_speed)
+    return (left_speed, right_speed, left_position, right_position)
 
 def turn_ccw(bot, deg): 
     ORBIT_DIAMETER = 115 #in mm 
