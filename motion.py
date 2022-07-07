@@ -3,7 +3,10 @@ import time, math
 
 # Proportional motor control, extra compensation for right motor
 # Robot naturally veers to the right
-# I will use the orbit function and not turn_degrees
+
+# Turning functions are essentially the same as given functions 
+# only difference when I implemented was that I played around with 
+# numbers until turning got more accurate 
 
 def fwd(bot, goal=200, left_speed=200, right_speed=200):
     TICKS = 4
