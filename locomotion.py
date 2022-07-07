@@ -9,9 +9,9 @@ def main():
 
     distance_sensor = bot.init_distance_sensor()
 
-    left_speed, right_speed = 200, 200 #starting speed
+    goal, left_speed, right_speed = 1000, 1000, 1000 #starting speed
     while distance_sensor.read_mm() > 300:
-        left_speed, right_speed = motion.fwd(bot, 200, left_speed, right_speed)
+        left_speed, right_speed = motion.fwd(bot, goal, left_speed, right_speed)
     
     bot.stop()
 
