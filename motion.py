@@ -1,5 +1,5 @@
 import easygopigo3
-import time 
+import time, math
 
 # Proportional motor control, extra compensation for right motor
 # Robot naturally veers to the right
@@ -28,11 +28,26 @@ def fwd(bot, goal=200, left_speed=200, right_speed=200):
     if right_error > 0:
         right_error *= 1.05
 
-    right_error *= 1.375
+    right_error *= (2.75 * (goal / 400))
     right_speed += kP * right_error
+
+    print(left_speed, left_position)
+    print(right_speed, right_position)
 
     return (left_speed, right_speed)
 
+def turn(bot, deg): 
+    ORBIT_DIAMETER = 115 #in mm 
+    WHEEL_DIAMETER = 65  #in mm 
+
+    mm_needed = (ORBIT_DIAMETER * math.pi) * (deg / 360)
+    degrees_needed = (mm_needed / (WHEEL_DIAMETER * math.pi)) * 360 
+
+    bot.reset_encoders()
+
+    bot.set_motor_position(bot.MOTOR_LEFT, -degrees_needed)
+    bot.set_motor_position(bot.MOTOR_RIGHT, degrees_needed)
 
 if __name__ == '__main__':
-    print('No default test')
+    bot = easygopigo3.EasyGoPiGo3()
+    turn(bot,90)
