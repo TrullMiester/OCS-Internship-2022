@@ -65,4 +65,8 @@ The provided turn_degrees method works well, there's some error that builds up b
 
 Using the provided encoders I could provide an estimate of distance travelled, but there's the veering and subsequent overcompensation. As a result, I don't think it'll be very accurate and so I don't think I could make the bot know it's location relative to the start point.
 
-Since my current forward function in motion.py goes on forever, I could either just make it run for a certain number of seconds, or I could try to make it async and turn while it's also going forward. 
+Since my current forward function in motion.py goes on forever, I could either just make it run for a certain number of seconds, or I could try to make it async and turn while it's also going forward. (As of now I have refactored the forward function to allow for PID and only last 0.25 seconds, or any other time. This will allow for concurrent methods to do things such as turn or use the distance sensor)
+
+To make the robot turn without moving, there basically is just 1 solution to this problem. Therefore my implementation and the given implementation are equivalent, mine is superior only because I am able to tweak the constants for a more precise turn.
+
+To make the robot estimate its own position, I need distance travelled from last measurement and the orientation of the robots. I can store these in variables either by editing the class or just putting these in a testing function. I think the second option is best because this is just an estimate, the robot doesnt drive perfectly straight and the turns aren't perfect either. 
