@@ -70,3 +70,7 @@ Since my current forward function in motion.py goes on forever, I could either j
 To make the robot turn without moving, there basically is just 1 solution to this problem. Therefore my implementation and the given implementation are equivalent, mine is superior only because I am able to tweak the constants for a more precise turn.
 
 To make the robot estimate its own position, I need distance travelled from last measurement and the orientation of the robots. I can store these in variables either by editing the class or just putting these in a testing function. I think the second option is best because this is just an estimate, the robot doesnt drive perfectly straight and the turns aren't perfect either. 
+
+# Perception
+
+There are currently 2 sensors on the robot, encoders on the motors and a distance sensor. The distance sensor has a range of 5 mm to 2300 mm and will return a value of 3000 if there is nothing in its range. The encoders tell me how many degrees the motors have rotated, allowing me to use proportional control to improve its driving and precisely instruct the motors how much to rotate for accurate turns.
