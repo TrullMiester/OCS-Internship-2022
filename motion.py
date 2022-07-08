@@ -53,7 +53,6 @@ def turn_ccw(bot, deg):
     bot.set_motor_position(bot.MOTOR_LEFT, left_position)
     bot.set_motor_position(bot.MOTOR_RIGHT, right_position)
 
-    time.sleep(0.1)
     while not bot.target_reached(left_position, right_position):
         time.sleep(0.05)
 
