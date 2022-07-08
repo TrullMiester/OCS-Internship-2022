@@ -1,15 +1,3 @@
-## Duckietown 
-
-Only available on linux, I have no clue if I can use on CPS computer. I don't have access to a laptop so unsure if this is viable option for me.
-
-## Raspberry PI or Arduino 
-
-Using distance sensor on GoPiGo, navigate the hallway/atrium autonimously. Maybe try to follow a set path.
-
-## FRC/FTC
-
-Same thing as a Raspberry PI just using the FRC or FTC platform.
-
 # Planning Questions 
 
 ### What is it?
