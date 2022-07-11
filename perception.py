@@ -2,14 +2,13 @@ import easygopigo3
 import time, math
 import motion as m
 
-def scan(bot):
-    # scan area in front of robot, find the closest "wall"
-    # then precisely turn to be perpindicular, then turn 90
-    # degreees to be parallel to the wall and continue on
+# scan area in front of robot, find the closest "wall"
+# then precisely turn to be perpindicular, then turn 90
+# degreees to be parallel to the wall and continue on
 
+def scan(bot):
     min_distance = 3000     # max distance sensor reading
-    min_degrees  = 0 
-    
+    min_degrees  = 0        # position of robot with closest distance  
 
 def main():
     bot = easygopigo3.EasyGoPiGo3()
