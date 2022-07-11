@@ -7,26 +7,32 @@ import motion as m
 # degreees to be parallel to the wall and continue on
 
 def scan(bot, distance_sensor):
+    START = 30
+    END = 180 - START
+    STEP = 10
     min_distance = 3000 # max distance sensor reading
     min_degrees = 0
 
-    m.turn_ccw(bot, 90) 
+    m.turn_ccw(bot, 90-START) 
     current_deg = 0
+    final_deg = 0
 
-    while current_deg <= 180:
+    while current_deg <= END:
         current_distance = distance_sensor.read_mm() 
         
         if current_distance <= min_distance:
             min_degrees  = current_deg
             min_distance = current_distance
         
-        if current_deg < 180: 
-            m.turn_cw(bot, 10)
+        if current_deg < END: 
+            m.turn_cw(bot, STEP)
+            final_deg = current_deg
         
-        current_deg += 10
+        current_deg += STEP 
     
-    m.turn_ccw(bot, 90-min_degrees)
+    m.turn_ccw(bot, final_deg-min_degrees-90)
 
+    print(min_degrees)
 
 
 
