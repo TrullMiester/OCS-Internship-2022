@@ -62,3 +62,5 @@ To make the robot estimate its own position, I need distance travelled from last
 # Perception
 
 There are currently 2 sensors on the robot, encoders on the motors and a distance sensor. The distance sensor has a range of 5 mm to 2300 mm and will return a value of 3000 if there is nothing in its range. The encoders tell me how many degrees the motors have rotated, allowing me to use proportional control to improve its driving and precisely instruct the motors how much to rotate for accurate turns.
+
+After an epiphany I wrote another function to move the robot forward, this uses the encoders and basically what happens is I instruct the motors to rotate a certain amount, then use encoder readings to make sure they stop rotating as soon as they hit that amount. This allows for very straight movement as I am not relying on the motors at all. I control everything.
