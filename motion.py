@@ -9,7 +9,7 @@ import time, math
 # numbers until turning got more accurate 
 
 def fwd(bot, goal=200, left_speed=200, right_speed=200):
-    TICKS = 4
+    TICKS = 2
     LOOP_GOAL = goal / TICKS
 
     kP = 1 
@@ -20,7 +20,7 @@ def fwd(bot, goal=200, left_speed=200, right_speed=200):
     bot.set_motor_dps(bot.MOTOR_LEFT, left_speed)
     bot.set_motor_dps(bot.MOTOR_RIGHT, right_speed)
 
-    time.sleep(0.25)
+    time.sleep(0.5)
 
     left_position, right_position = bot.read_encoders()
 
@@ -28,16 +28,34 @@ def fwd(bot, goal=200, left_speed=200, right_speed=200):
     left_speed += kP * left_error
 
     right_error = LOOP_GOAL - right_position
-    if right_error > 0:
-        right_error *= 1.05
+#    if right_error > 0:
+#        right_error *= 1.05
 
-    right_error *= (2.75 * (goal / 400))
     right_speed += kP * right_error
 
     print(left_speed, left_position)
     print(right_speed, right_position)
 
     return (left_speed, right_speed, left_position, right_position)
+
+def newfwd(bot, dps):
+    bot.reset_encoders(True)
+
+    bot.set_motor_position(bot.MOTOR_LEFT + bot.MOTOR_RIGHT , dps)
+
+    left = False
+    right = False
+    while not (left and right):
+        left_pos, right_pos = bot.read_encoders()
+        if left_pos >= dps:
+            bot.set_motor_dps(bot.MOTOR_LEFT, 0)
+            left = True
+        if right_pos >= dps:
+            bot.set_motor_dps(bot.MOTOR_RIGHT, 0)
+            right = True
+    
+    print(bot.read_encoders())
+
 
 def turn_ccw(bot, deg): 
     ORBIT_DIAMETER = 115 #in mm 
@@ -57,7 +75,7 @@ def turn_ccw(bot, deg):
         time.sleep(0.05)
 
 def turn_cw(bot, deg): 
-    ORBIT_DIAMETER = 115 #in mm 
+    ORBIT_DIAMETER = 115  #in mm 
     WHEEL_DIAMETER = 65  #in mm 
 
     mm_needed = (ORBIT_DIAMETER * math.pi) * (deg / 360)
@@ -76,5 +94,4 @@ def turn_cw(bot, deg):
 if __name__ == '__main__':
     bot = easygopigo3.EasyGoPiGo3()
 
-    turn_ccw(bot, 90)
-    turn_cw(bot, 90)
+    turn_cw(bot, 360)
