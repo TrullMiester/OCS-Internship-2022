@@ -21,8 +21,9 @@ def scan(bot, distance_sensor):
             min_distance = current_distance
         
         if current_deg < 180: 
-            current_deg += 10
             m.turn_cw(bot, 10)
+        
+        current_deg += 10
     
     m.turn_ccw(bot, 90-min_degrees)
 
