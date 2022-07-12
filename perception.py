@@ -26,8 +26,8 @@ def scan(bot, distance_sensor):
         
         if current_deg < END: 
             m.turn_cw(bot, STEP)
-            final_deg = current_deg
-        
+            
+        final_deg = current_deg
         current_deg += STEP 
     
     m.turn_ccw(bot, final_deg-min_degrees-90)
