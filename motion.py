@@ -28,9 +28,6 @@ def fwd(bot, goal=200, left_speed=200, right_speed=200):
     left_speed += kP * left_error
 
     right_error = LOOP_GOAL - right_position
-#    if right_error > 0:
-#        right_error *= 1.05
-
     right_speed += kP * right_error
 
     print(left_speed, left_position)

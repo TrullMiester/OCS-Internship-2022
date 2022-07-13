@@ -34,7 +34,23 @@ def scan(bot, distance_sensor):
 
     print(min_degrees)
 
+def scan_two(bot):
+    forward_distance = bot.init_distance_sensor()
+    rear_distance = bot.init_distance_sensor('AD2')
 
+    servo = bot.init_servo()
+    servo.rotate_servo(0)
+
+    rear = rear_distance.read_mm()
+    forward = forward_distance.read_mm()
+
+    if rear < 300:
+        m.turn_cw(bot, 0)
+    elif forward < 150:
+        if rear > 600:
+            m.turn_cw(bot, 90)
+        else:
+            scan(bot, forward_distance)
 
 def main():
     bot = easygopigo3.EasyGoPiGo3()
@@ -49,13 +65,8 @@ def main():
     end = time.time()  + DURATION 
 
     while time.time() < end:
-        distance = distance_sensor.read_mm() 
-
-        if distance < 300: 
-            scan(bot, distance_sensor)
-        else:
-            m.fwd(bot, SPEED) 
-
+        scan_two(bot)
+        m.newfwd(bot, SPEED)
 
 if __name__ == '__main__':
     main()

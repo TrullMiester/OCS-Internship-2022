@@ -72,3 +72,5 @@ Another option I have is making the distance sensor face 1 side of the robot and
 Maybe an alternative to both above would be to take advantage of the servo. I could drive the robot at a much slower speed and rotate the servo while taking distance sensor readings at the same time, trying to always follow the closest wall. I could make my life easier and the robot would probably perform better if at the start I specified to either follow the leftmost wall or the rightmost wall. Therefore I only need to scan 1 half of the area ahead.
 
 As of now I have installed the second distance sensor available on the robot. There's only one servo kit so I put that one on top and that'll be the distance sensor facing either left or right. The second distance sensor will be on the bottom and will be facing forward to tell the robot how close it is to an obsticle. Using these 2 readings we should have a much more accurate detection of walls and other obsticles. 
+
+First I will test this 2 sensor system by telling it to follow either the leftmost wall or rightmost wall. If this works smoothly then I'll try to integrate both at the same time.
