@@ -100,11 +100,13 @@ def main():
 
     DURATION = 30  # seconds
     SPEED = 200    # degrees per iteration
+    
+    result = False
 
     end = time.time()  + DURATION 
 
     while time.time() < end:
-        scan_two(bot)
+        result = scan_two(bot, result)
         m.newfwd(bot, SPEED)
 
 if __name__ == '__main__':
