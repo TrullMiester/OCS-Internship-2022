@@ -34,6 +34,27 @@ def scan(bot, distance_sensor):
 
     print(min_degrees)
 
+def rear_scan(bot, distance_sensor): 
+    current_rotation = 0
+    minimum_distance = 3000
+    best_degrees = 0
+    STEP = 15
+    END = 90
+    
+    while current_rotation <= END:
+        current_distance = distance_sensor.read_mm()
+        if current_distance <= minimum_distance:
+            best_degrees = current_rotation
+            minimum_distance = current_distance
+        
+        if current_rotation < END:
+            m.turn_cw(bot, STEP)
+        
+        current_rotation += STEP
+    
+    m.turn_ccw(bot, current_rotation-best_degrees)
+    print(best_degrees)
+            
 def scan_two(bot, turned):
     forward_distance = bot.init_distance_sensor()
     rear_distance = bot.init_distance_sensor('AD2')
@@ -56,8 +77,7 @@ def scan_two(bot, turned):
 
     result = True
     if forward <= 300:
-        pass
-        #do scan
+        rear_scan(bot, rear_distance)
     elif rear <= 500:
         pass 
     elif forward < 3000:
