@@ -82,7 +82,7 @@ def scan_two(bot, turned):
     result = True
     if forward <= 150 or rear <= 150:
         rear_scan(bot, rear_distance)
-    elif rear < 3000:
+    elif forward > 2000 and rear < 3000:
         m.turn_ccw(bot, 90)
     elif rear >= 3000 and forward >= 3000 and not turned:
         m.turn_cw(bot, 90)
