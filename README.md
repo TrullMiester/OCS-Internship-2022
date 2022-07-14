@@ -74,3 +74,5 @@ Maybe an alternative to both above would be to take advantage of the servo. I co
 As of now I have installed the second distance sensor available on the robot. There's only one servo kit so I put that one on top and that'll be the distance sensor facing either left or right. The second distance sensor will be on the bottom and will be facing forward to tell the robot how close it is to an obsticle. Using these 2 readings we should have a much more accurate detection of walls and other obsticles. 
 
 First I will test this 2 sensor system by telling it to follow either the leftmost wall or rightmost wall. If this works smoothly then I'll try to integrate both at the same time.
+
+The big thing I overlooked was that when I rotate the robot, the distance sensor moves. This means that I need to account for this movement for accurate measurements. I've measured the distance sensor tracing a circle with diameter 19 cm or 190 mm and I'll try to tweak this number further to get the results I want.
