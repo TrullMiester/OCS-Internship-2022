@@ -40,9 +40,12 @@ def rear_scan(bot, distance_sensor):
     best_degrees = 0
     STEP = 15
     END = 90
+    DIAMETER = 190
     
     while current_rotation <= END:
         current_distance = distance_sensor.read_mm()
+        current_distance += (DIAMETER * math.sin(math.radians(current_rotation)))
+
         if current_distance <= minimum_distance:
             best_degrees = current_rotation
             minimum_distance = current_distance
