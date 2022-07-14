@@ -79,12 +79,8 @@ def scan_two(bot, turned):
     # Priority of cases to make sure no collisions take place is 2 -> 1 -> 3 -> 4 -> 5
 
     result = True
-    if forward <= 300:
+    if forward <= 150 or rear <= 150:
         rear_scan(bot, rear_distance)
-    elif rear <= 500:
-        pass 
-    elif forward < 3000:
-        pass
     elif rear < 3000:
         m.turn_ccw(bot, 90)
     elif rear >= 3000 and forward >= 3000 and not turned:
