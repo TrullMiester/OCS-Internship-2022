@@ -34,6 +34,7 @@ def scan(bot, distance_sensor):
 
     print(min_degrees)
 
+# Scans in a 90 degree window from the rear of the robot
 def rear_scan(bot, distance_sensor): 
     current_rotation = 0
     minimum_distance = 3000
@@ -44,7 +45,7 @@ def rear_scan(bot, distance_sensor):
     
     while current_rotation <= END:
         current_distance = distance_sensor.read_mm()
-        current_distance += (DIAMETER * math.sin(math.radians(current_rotation)))
+        current_distance += (DIAMETER * math.cos(math.radians(current_rotation)))
 
         if current_distance <= minimum_distance:
             best_degrees = current_rotation
@@ -55,7 +56,7 @@ def rear_scan(bot, distance_sensor):
         
         current_rotation += STEP
     
-    m.turn_ccw(bot, current_rotation-best_degrees)
+    m.turn_ccw(bot, END-best_degrees)
     print(best_degrees)
             
 def scan_two(bot, turned):
