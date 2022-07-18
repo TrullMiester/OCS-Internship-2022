@@ -59,36 +59,38 @@ def rear_scan(bot, distance_sensor):
     m.turn_ccw(bot, END-best_degrees)
     print(best_degrees)
             
-def scan_two(bot, turned):
+# Returns the distance left motor and right motor are supposed to turn
+def scan_two(bot, speed):
+    # Take readings from front and rear distance sensor to determine 
+    # movement of robot. Ideal distance is 200-400mm 
+    #
+    # Case 1: Front sensor says very close to wall, perform scan
+    # Case 2: Rear sensor says very close to wall , left motor turn more
+    # Case 3: Rear sensor says very far from wall, right motor turn more
+    # Case 4: Rear sensor says wall very far away (maybe 1500+ mm?), move  
+    #         1 bot length forward, then turn in direction of sensor
+    # This should allow for better movement than previous commits
+    
     forward_distance = bot.init_distance_sensor()
-    rear_distance = bot.init_distance_sensor('AD2')
-
-    rear = rear_distance.read_mm()
     forward = forward_distance.read_mm()
 
-    # Take readings from distance sensors to determine future orientation
-    # Case 1: Rear reading says close to wall, maybe like less than ~300-500 mm?
-    #         No change in orientation, keep going forward 
-    # Case 2: Forward distance sensor says very close to wall, less than ~150-300 mm.
-    #         perform a scan using the rear distance sensor to keep following wall.
-    # Case 3: Forward distance sensor says wall is in the distance, not 3000mm, 
-    #         no change in orientation, keep going forward
-    # Case 4: Rear distance sensor says wall is in the distance, not 3000 mm, 
-    #         turn in direction of distance sensor
-    # Case 5: Rear and forward distance sensor say nothing close, turn in direction
-    #         of distance sensor, make sure not to turn twice until facing another wall 
-    # Priority of cases to make sure no collisions take place is 2 -> 1 -> 3 -> 4 -> 5
+    rear_distance = bot.init_distance_sensor('AD2')
+    rear = rear_distance.read_mm()
 
-    result = True
-    if forward <= 150 or rear <= 150:
-        rear_scan(bot, rear_distance)
-    elif forward > 2000 and rear < 3000:
+    left = speed
+    right = speed
+
+    if forward <= 200:
+        rear_scan(bot, rear_distance) 
+    elif rear < 200:
+        left += (SPEED * ((200 - rear) / 200)) 
+    elif rear > 400 and rear < 1000:
+        right += (SPEED * ((rear - 400) / 200))
+    elif rear > 1500:
+        m.newfwd(bot, 200)
         m.turn_ccw(bot, 90)
-    elif rear >= 3000 and forward >= 3000 and not turned:
-        m.turn_cw(bot, 90)
-        result = False
-    
-    return result  
+
+    return (left, right)
 
 
 def main():
@@ -106,8 +108,8 @@ def main():
     end = time.time()  + DURATION 
 
     while time.time() < end:
-        result = scan_two(bot, result)
-        m.newfwd(bot, SPEED)
+        left, right = scan_two(bot, SPEED)
+        m.fwdfwd(bot, left, right)
 
 if __name__ == '__main__':
     main()

@@ -71,7 +71,7 @@ def fwdfwd(bot, leftdps, rightdps):
             bot.set_motor_dps(bot.MOTOR_RIGHT, 0)
             right = True
             
-     print(bot.read_encoders(), leftdps, rightdps)
+    print(bot.read_encoders(), leftdps, rightdps)
 
 def turn_ccw(bot, deg): 
     ORBIT_DIAMETER = 115 #in mm 
