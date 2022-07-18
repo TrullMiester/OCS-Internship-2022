@@ -53,6 +53,25 @@ def newfwd(bot, dps):
     
     print(bot.read_encoders())
 
+def fwdfwd(bot, leftdps, rightdps):
+    bot.reset_encoders(True)
+    
+    bot.set_motor_position(bot.MOTOR_LEFT, leftdps)
+    time.sleep(0.01)
+    bot.set_motor_position(bot.MOTOR_RIGHT, rightdps)
+    time.sleep(0.01)
+    
+    left, right = False, False
+    while not (left and right):
+        left_pos, right_pos = bot.read_encoders()
+        if left_pos >= leftdps:
+            bot.set_motor_dps(bot.MOTOR_LEFT, 0)
+            left = True
+        if right_pos >= rightdps:
+            bot.set_motor_dps(bot.MOTOR_RIGHT, 0)
+            right = True
+            
+     print(bot.read_encoders(), leftdps, rightdps)
 
 def turn_ccw(bot, deg): 
     ORBIT_DIAMETER = 115 #in mm 
