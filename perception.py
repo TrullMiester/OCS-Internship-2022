@@ -37,7 +37,7 @@ def scan(bot, distance_sensor):
 # Scans in a 90 degree window from the rear of the robot
 def rear_scan(bot, distance_sensor): 
     current_rotation = 0
-    minimum_distance = 3000
+    minimum_distance = 3000 # Max distance sensor reading
     best_degrees = 0
     STEP = 15
     END = 90
@@ -45,6 +45,8 @@ def rear_scan(bot, distance_sensor):
     
     while current_rotation <= END:
         current_distance = distance_sensor.read_mm()
+        
+        #compensation for the movement of the distance sensor
         current_distance += (DIAMETER * math.cos(math.radians(current_rotation)))
 
         if current_distance <= minimum_distance:
@@ -62,8 +64,8 @@ def rear_scan(bot, distance_sensor):
 # Returns the distance left motor and right motor are supposed to turn
 def scan_two(bot, speed):
     # Take readings from front and rear distance sensor to determine 
-    # movement of robot. Ideal distance is 200-400mm 
-    #
+    # movement of robot. Ideal distance is 200-400mm and will be linear
+    # compensation.
     # Case 1: Front sensor says very close to wall, perform scan
     # Case 2: Rear sensor says very close to wall , left motor turn more
     # Case 3: Rear sensor says very far from wall, right motor turn more
