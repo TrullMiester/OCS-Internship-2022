@@ -79,18 +79,22 @@ def scan_two(bot, speed):
     rear_distance = bot.init_distance_sensor('AD2')
     rear = rear_distance.read_mm()
 
+    print(forward, rear)
+
     left = speed
     right = speed
 
-    if forward <= 200:
+    if forward <= 150:
         rear_scan(bot, rear_distance) 
-    elif rear < 200:
-        left += (SPEED * ((200 - rear) / 200)) 
-    elif rear > 400 and rear < 1000:
-        right += (SPEED * ((rear - 400) / 200))
-    elif rear > 1500:
-        m.newfwd(bot, 200)
+    elif rear < 150:
+        left += (speed * ((200 - rear) / 200)) 
+    elif rear > 400 and rear < 600:
+        right += (speed * ((rear - 400) / 200))
+    elif rear > 900:
+        m.newfwd(bot, 100)
         m.turn_ccw(bot, 90)
+        while min(forward_distance.read_mm(), rear_distance.read_mm()) > 150:
+            m.newfwd(bot,100)
 
     return (left, right)
 
@@ -102,8 +106,8 @@ def main():
 
     servo.reset_servo()
 
-    DURATION = 30  # seconds
-    SPEED = 200    # degrees per iteration
+    DURATION = 60  # seconds
+    SPEED = 100 # degrees per iteration
     
     result = False
 
