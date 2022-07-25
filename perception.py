@@ -86,10 +86,10 @@ def scan_two(bot, speed):
 
     if forward <= 150:
         rear_scan(bot, rear_distance) 
-    elif rear < 150:
+    elif rear < 200
         left += (speed * ((200 - rear) / 200)) 
-    elif rear > 400 and rear < 600:
-        right += (speed * ((rear - 400) / 200))
+    elif rear > 200 and rear < 600:
+        right += (speed * ((rear - 200) / 200))
     elif rear > 900:
         m.newfwd(bot, 100)
         m.turn_ccw(bot, 90)
