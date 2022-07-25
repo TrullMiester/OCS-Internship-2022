@@ -93,8 +93,7 @@ def scan_two(bot, speed):
     elif rear > 900:
         m.newfwd(bot, 100)
         m.turn_ccw(bot, 90)
-        while min(forward_distance.read_mm(), rear_distance.read_mm()) > 150:
-            m.newfwd(bot,100)
+        m.newfwd(bot, 200)
 
     return (left, right)
 
