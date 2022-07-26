@@ -47,7 +47,7 @@ def rear_scan(bot, distance_sensor):
         current_distance = distance_sensor.read_mm()
         
         #compensation for the movement of the distance sensor
-        current_distance += (DIAMETER * math.cos(math.radians(current_rotation)))
+        current_distance += (DIAMETER / 2 * math.cos(math.radians(current_rotation)))
 
         if current_distance <= minimum_distance:
             best_degrees = current_rotation
@@ -86,14 +86,15 @@ def scan_two(bot, speed):
 
     if forward <= 150:
         rear_scan(bot, rear_distance) 
-    elif rear < 200
-        left += (speed * ((200 - rear) / 200)) 
+    elif rear < 200:
+        left += (speed * ((200 - rear) / 300)) 
     elif rear > 200 and rear < 600:
-        right += (speed * ((rear - 200) / 200))
+        right += (speed * ((rear - 200) / 300))
     elif rear > 900:
-        m.newfwd(bot, 100)
+        m.newfwd(bot, 350)
         m.turn_ccw(bot, 90)
-        m.newfwd(bot, 200)
+        while rear_distance.read_mm() > 900:
+            m.newfwd(bot, 100)
 
     return (left, right)
 
