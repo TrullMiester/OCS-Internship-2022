@@ -64,7 +64,7 @@ def rear_scan(bot, distance_sensor):
     return minimum_distance
 
 # Returns the distance left motor and right motor are supposed to turn
-def scan_two(bot, speed, dist):
+def scan_two(bot, fwdsensor, rearsensor, speed, dist):
     # Take readings from front and rear distance sensor to determine 
     # movement of robot. Ideal distance is 200-400mm and will be linear
     # compensation.
@@ -75,11 +75,8 @@ def scan_two(bot, speed, dist):
     #         1 bot length forward, then turn in direction of sensor
     # This should allow for better movement than previous commits
     
-    forward_distance = bot.init_distance_sensor()
-    forward = forward_distance.read_mm()
-
-    rear_distance = bot.init_distance_sensor('AD2')
-    rear = rear_distance.read_mm()
+    forward = fwdsensor.read_mm()
+    rear = rearsensor.read_mm()
 
     print(forward, rear)
 
@@ -89,7 +86,7 @@ def scan_two(bot, speed, dist):
     newdist = dist
 
     if forward <= 150:
-        newdist = rear_scan(bot, rear_distance) 
+        newdist = rear_scan(bot, rearsensor) 
     elif rear < dist:
         left += (speed * ((dist - rear) / (dist * 3 / 2))) 
     elif rear > dist and rear < 3 * dist:
@@ -99,13 +96,17 @@ def scan_two(bot, speed, dist):
         m.turn_ccw(bot, 90)
         while rear_distance.read_mm() > 3 * dist:
             m.newfwd(bot, 100)
+    else:
+        pass 
 
     return (left, right, newdist)
 
 def main():
     bot = easygopigo3.EasyGoPiGo3()
     servo = bot.init_servo()
-    distance_sensor = bot.init_distance_sensor()
+
+    fwd_sensor = bot.init_distance_sensor()
+    rear_sensor = bot.init_distance_sensor('AD2')
 
     servo.reset_servo()
 
@@ -119,7 +120,10 @@ def main():
 
 
     while time.time() < end:
-        left, right, distance = scan_two(bot, SPEED, distance)
+        left, right, distance = scan_two(bot, fwd_sensor, rear_sensor, SPEED, distance)
+
+        print(left, right, distance)
+
         m.fwdfwd(bot, left, right)
 
 if __name__ == '__main__':
