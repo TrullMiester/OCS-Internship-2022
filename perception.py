@@ -87,6 +87,8 @@ def scan_two(bot, fwdsensor, rearsensor, speed, dist):
 
     if forward <= 150:
         newdist = rear_scan(bot, rearsensor) 
+        left = 0
+        right = 0
     elif rear < dist:
         left += (speed * ((dist - rear) / (dist * 3 / 2))) 
     elif rear > dist and rear < 3 * dist:
