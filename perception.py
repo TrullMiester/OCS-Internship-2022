@@ -112,7 +112,7 @@ def main():
 
     DURATION = 60  # seconds
     SPEED = 100    # degrees per iteration
-    distance = 200 # # of mm away from wall
+    distance = rear_sensor.read_mm() # # of mm away from wall
     
     result = False
 
